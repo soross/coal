@@ -1,3 +1,4 @@
+
 module Locomotive::Coal
   module Resources
 
@@ -7,6 +8,20 @@ module Locomotive::Coal
 
       alias :all :index
 
+      
+      include Concerns::Request
+
+      def create(attributes = {})
+        without_authentication do
+          data = post('membership', membership: attributes)
+          Resource.new(data)
+        end
+      end
+
+      def update(attributes = {})
+        data = put('membership', membership: attributes)
+        Resource.new(data)
+      end
     end
 
   end
